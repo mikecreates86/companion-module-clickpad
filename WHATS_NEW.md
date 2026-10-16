@@ -1,10 +1,7 @@
 ## What's new
 
-The download now stays a `.tgz` in Safari (it used to arrive unpacked as `.tar`, which Companion won't import).
+- New variables: **clickpad_name** (the ClickPad's name), **remote_count** and **remote_names** (remote ClickPads connected to it).
+- ClickPad now lists this Companion connection by name under Settings › Remote › Connected now.
+- The help links to the ClickPad website, [clickpad.app](https://clickpad.app).
 
-First release of the ClickPad module:
-
-- Live feedback from ClickPad with no polling: song title, key and scale, tempo, time signature, next song, click and pad state, count-in.
-- Every ClickPad control as an action, plus Select Song.
-- Ready-made presets: controls (lit while running), song selection, and status displays.
-- Reconnects by itself if ClickPad restarts or the network drops.
+Needs ClickPad from October 16, 2026 or later for the new variables; older ClickPads still work, the new variables just stay empty.

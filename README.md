@@ -1,6 +1,6 @@
 # companion-module-clickpad
 
-Bitfocus Companion module for **ClickPad**, the click, pads and song-announcement app for worship teams.
+Bitfocus Companion module for **ClickPad**, the click, pads and song-announcement app for worship teams. Website: [clickpad.app](https://clickpad.app)
 
 ## Download
 

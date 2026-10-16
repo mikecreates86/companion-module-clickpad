@@ -1,7 +1,14 @@
 import { InstanceBase, InstanceStatus, type SomeCompanionConfigField } from '@companion-module/base'
 import { GetConfigFields, type ModuleConfig } from './config.js'
 import { ClickPadConnection } from './connection.js'
-import { EMPTY_STATE, parseState, variableValues, VARIABLE_DEFINITIONS, type ClickPadState } from './state.js'
+import {
+	EMPTY_STATE,
+	parseState,
+	variableValues,
+	VARIABLE_DEFINITIONS,
+	type ClickPadState,
+	helloCommand,
+} from './state.js'
 import { UpdateActions, type ActionsSchema } from './actions.js'
 import { UpdateFeedbacks, type FeedbacksSchema } from './feedbacks.js'
 import { UpdatePresets } from './presets.js'
@@ -76,6 +83,7 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 				this.outageLogged = false
 				this.connected = true
 				this.connectionState = 'connected'
+				this.connection?.send(helloCommand(`Companion (${this.label})`))
 				this.updateStatus(InstanceStatus.Ok)
 				this.publish()
 			},

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { commandFor, CONTROLS, parseState, selectSongCommand, variableValues } from '../dist/state.js'
+import { commandFor, CONTROLS, helloCommand, parseState, selectSongCommand, variableValues } from '../dist/state.js'
 
 const sample = JSON.stringify({
 	type: 'state',
@@ -88,4 +88,26 @@ test('sends the action names ClickPad understands', () => {
 	assert.equal(commandFor('start_stop'), '{"action":"startStopToggle"}')
 	assert.equal(selectSongCommand(3), '{"action":"selectSong","song":3}')
 	assert.equal(selectSongCommand(0), '{"action":"selectSong","song":1}')
+})
+
+test('shows the ClickPad name and its connected remotes', () => {
+	const state = parseState(
+		JSON.stringify({ type: 'state', mainName: 'Stage Left', remoteNames: ['Drums', 'Keys Laptop'] }),
+	)
+	const values = variableValues(state, 'connected')
+	assert.equal(values.clickpad_name, 'Stage Left')
+	assert.equal(values.remote_count, 2)
+	assert.equal(values.remote_names, 'Drums, Keys Laptop')
+	// An older ClickPad sends neither: the variables are just empty.
+	const old = variableValues(parseState(JSON.stringify({ type: 'state' })), 'connected')
+	assert.equal(old.clickpad_name, '')
+	assert.equal(old.remote_count, 0)
+})
+
+test('introduces itself to ClickPad as Companion', () => {
+	assert.deepEqual(JSON.parse(helloCommand('Companion (clickpad)')), {
+		action: 'hello',
+		name: 'Companion (clickpad)',
+		client: 'companion',
+	})
 })

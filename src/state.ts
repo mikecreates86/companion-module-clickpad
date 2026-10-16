@@ -30,6 +30,10 @@ export interface ClickPadState {
 	announcing: boolean
 	output: string
 	outputOK: boolean
+	/** The ClickPad's name (Settings › Remote in ClickPad). Sent by ClickPad 1.1 and later. */
+	mainName: string
+	/** Names of the remote ClickPads connected to it right now. */
+	remoteNames: string[]
 }
 
 export const EMPTY_STATE: ClickPadState = {
@@ -60,6 +64,8 @@ export const EMPTY_STATE: ClickPadState = {
 	announcing: false,
 	output: '',
 	outputOK: false,
+	mainName: '',
+	remoteNames: [],
 }
 
 /** Reads a message from ClickPad. Returns undefined for anything that isn't a state message. */
@@ -104,6 +110,9 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	pad_play_state: { name: 'Pad play state (playing/stopped)' },
 	announcing: { name: 'Announcement speaking (true/false)' },
 	audio_output: { name: 'ClickPad audio output name' },
+	clickpad_name: { name: "ClickPad's name (set in ClickPad › Settings › Remote)" },
+	remote_count: { name: 'Number of remote ClickPads connected' },
+	remote_names: { name: 'Names of the remote ClickPads connected, e.g. "Keys Laptop, Drums"' },
 }
 
 const capital = (text: string) => (text ? text[0].toUpperCase() + text.slice(1) : '')
@@ -149,6 +158,9 @@ export function variableValues(
 		pad_play_state: state.pad ? 'playing' : 'stopped',
 		announcing: state.announcing,
 		audio_output: state.output,
+		clickpad_name: state.mainName,
+		remote_count: Array.isArray(state.remoteNames) ? state.remoteNames.length : 0,
+		remote_names: Array.isArray(state.remoteNames) ? state.remoteNames.join(', ') : '',
 	}
 }
 
@@ -176,6 +188,11 @@ export type ControlId = (typeof CONTROLS)[number]['id']
 export function commandFor(id: ControlId): string {
 	const control = CONTROLS.find((c) => c.id === id)
 	return JSON.stringify({ action: control?.app ?? id })
+}
+
+/** Sent when connecting, so ClickPad's Settings › Remote lists this connection as Companion, by name. */
+export function helloCommand(name: string): string {
+	return JSON.stringify({ action: 'hello', name, client: 'companion' })
 }
 
 export function selectSongCommand(song: number): string {
