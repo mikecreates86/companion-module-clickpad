@@ -105,11 +105,8 @@ jobs:
           gh release create "$tag" --draft --target "$GITHUB_SHA" --title "$VERSION" --notes-file "$RUNNER_TEMP/notes.md"
           # Upload as a plain download (application/octet-stream). If it's labelled as a gzip archive,
           # Safari unpacks it to .tar while downloading, and Companion only accepts the .tgz.
-          upload_url=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${tag}" --jq '.upload_url' 2>/dev/null || true)
-          if [ -z "$upload_url" ]; then
-            release_id=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --jq ".[] | select(.tag_name==\"${tag}\") | .id" | head -1)
-            upload_url="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets{?name,label}"
-          fi
+          # (gh release view also sees drafts, which the plain releases/tags lookup does not.)
+          upload_url=$(gh release view "$tag" --json uploadUrl --jq '.uploadUrl')
           curl --fail --silent --show-error -X POST \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "Content-Type: application/octet-stream" \
