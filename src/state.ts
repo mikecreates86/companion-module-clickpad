@@ -169,7 +169,7 @@ export function variableValues(
  * action name (part of the contract with the app: don't change these).
  */
 export const CONTROLS = [
-	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (GO, or Stop Click)', text: 'GO' },
+	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (GO, or Stop Click)', text: 'START' },
 	{ id: 'go', app: 'go', name: 'GO (Pad, Announcement and Click)', text: 'GO' },
 	{ id: 'next_song', app: 'nextSong', name: 'Next Song', text: 'NEXT' },
 	{ id: 'previous_song', app: 'previousSong', name: 'Previous Song', text: 'PREV' },

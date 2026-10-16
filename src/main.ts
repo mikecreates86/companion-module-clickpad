@@ -52,6 +52,7 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 
 	async configUpdated(config: ModuleConfig): Promise<void> {
 		this.config = config
+		UpdatePresets(this) // the connection may have been renamed
 		this.connect()
 	}
 

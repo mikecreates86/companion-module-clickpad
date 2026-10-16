@@ -13,6 +13,8 @@ const AMBER = 0xd99a2b
 
 /** Ready-made buttons: live song info, every control (with lit feedback), and song pickers. */
 export function UpdatePresets(self: ModuleInstance): void {
+	// Variables are named after this connection (e.g. "clickpad"), so buttons read the right one.
+	const v = self.label
 	const songNumbers = Array.from({ length: SONG_BUTTONS }, (_, i) => i + 1)
 	// One section, like the Playback module: controls, song selection and status displays.
 	const structure: CompanionPresetSection[] = [
@@ -65,13 +67,13 @@ export function UpdatePresets(self: ModuleInstance): void {
 	}
 
 	const presets: Record<string, unknown> = {
-		display_title: info('Song title', '$(this:song_title)', 14),
-		display_key: info('Song key', '$(this:song_key)', 44),
-		display_tempo: info('Tempo', '$(this:tempo_label)\n$(this:song_time_signature)'),
-		display_key_tempo: info('Key and tempo', '$(this:song_key_and_scale)\n$(this:tempo_label)'),
-		display_next: info('Next song', 'NEXT\n$(this:next_song_title)\n$(this:next_song_key) $(this:next_transition)', 14),
+		display_title: info('Song title', `$(${v}:song_title)`, 14),
+		display_key: info('Song key', `$(${v}:song_key)`, 44),
+		display_tempo: info('Tempo', `$(${v}:tempo_label)\n$(${v}:song_time_signature)`),
+		display_key_tempo: info('Key and tempo', `$(${v}:song_key_and_scale)\n$(${v}:tempo_label)`),
+		display_next: info('Next song', `NEXT\n$(${v}:next_song_title)\n$(${v}:next_song_key) $(${v}:next_transition)`, 14),
 		display_status: {
-			...info('Click and pad status', 'CLICK $(this:click_play_state)\nPAD $(this:pad_play_state)', 14),
+			...info('Click and pad status', `CLICK $(${v}:click_play_state)\nPAD $(${v}:pad_play_state)`, 14),
 			feedbacks: [
 				{ feedbackId: 'count_in', options: {}, style: { bgcolor: AMBER, color: 0x000000 } },
 				{ feedbackId: 'connected', options: {}, isInverted: true, style: { bgcolor: RED, color: WHITE } },
