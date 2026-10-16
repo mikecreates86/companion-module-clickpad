@@ -1,0 +1,45 @@
+# Dependencies and package-manager caches
+/node_modules/
+/.yarn/
+package-lock.json
+/.npmrc
+
+# Local environment, credentials and certificates
+/.env
+/.env.*
+!/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Generated builds, packages and reports
+/dist/
+/pkg/
+/releases/*
+!/releases/README.md
+/*.tgz
+/coverage/
+*.tsbuildinfo
+
+# Private investigative artifacts; sanitized fixtures belong in tests/fixtures/
+/captures/
+*.pcap
+*.pcapng
+*.companionconfig
+
+# Logs, caches, backups and temporary files
+*.log
+DEBUG-*
+.cache/
+.eslintcache
+*.bak
+*.tmp
+*.swp
+*~
+
+# Editor and operating-system files
+/.vscode/
+/.idea/
+.DS_Store
+Thumbs.db
