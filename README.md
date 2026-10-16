@@ -13,6 +13,7 @@ See [companion/HELP.md](companion/HELP.md).
 ## Sharing status
 
 - Private for now; not yet submitted to the Bitfocus module list.
+- The Bitfocus "Companion Module Checks" workflow is switched off while the repository is private (it can't read private repositories). Switch it back on (`gh workflow enable "Companion Module Checks"`) before sharing. The module's own build, lint, test and package checks run on every change.
 - Nothing church-specific is in the module (no addresses, names or passwords); the connection address is entered in Companion.
 
 ## Contract with the app

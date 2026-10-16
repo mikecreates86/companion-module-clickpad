@@ -101,7 +101,21 @@ jobs:
           else
             flags=(--prerelease --latest=false)
           fi
-          gh release create "$tag" "$file" --target "$GITHUB_SHA" --title "$VERSION" --notes-file "$RUNNER_TEMP/notes.md" "${flags[@]}"
+          # Create as a draft, attach the file, then publish: the release never appears without its file.
+          gh release create "$tag" --draft --target "$GITHUB_SHA" --title "$VERSION" --notes-file "$RUNNER_TEMP/notes.md"
+          # Upload as a plain download (application/octet-stream). If it's labelled as a gzip archive,
+          # Safari unpacks it to .tar while downloading, and Companion only accepts the .tgz.
+          upload_url=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${tag}" --jq '.upload_url' 2>/dev/null || true)
+          if [ -z "$upload_url" ]; then
+            release_id=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --jq ".[] | select(.tag_name==\"${tag}\") | .id" | head -1)
+            upload_url="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets{?name,label}"
+          fi
+          curl --fail --silent --show-error -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @"$file" \
+            "${upload_url%%\{*}?name=$(basename "$file")" > /dev/null
+          gh release edit "$tag" --draft=false "${flags[@]}"
       - name: Remove the old rolling test build
         # Replaced by numbered releases; its only file is an older test version.
         if: github.ref_name == 'main'
