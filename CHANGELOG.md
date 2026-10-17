@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- If ClickPad removes this connection (Settings › Network › Remove), it stays off instead of reconnecting, and says so. Save the connection or turn it off and on to reconnect.
+
 ## 1.1.1
 
 - Fixed: status display presets showed "$NA" instead of the song, key and tempo.

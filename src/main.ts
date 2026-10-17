@@ -8,6 +8,7 @@ import {
 	VARIABLE_DEFINITIONS,
 	type ClickPadState,
 	helloCommand,
+	isRemovedMessage,
 } from './state.js'
 import { UpdateActions, type ActionsSchema } from './actions.js'
 import { UpdateFeedbacks, type FeedbacksSchema } from './feedbacks.js'
@@ -101,11 +102,25 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 				}
 				this.updateStatus(
 					InstanceStatus.ConnectionFailure,
-					`${reason}. Check ClickPad is open and Settings › Companion is on.`,
+					`${reason}. Check ClickPad is open and Settings › Network › Allow remotes and Companion is on.`,
 				)
 				if (wasConnected) this.publish()
 			},
 			onMessage: (text) => {
+				if (isRemovedMessage(text)) {
+					// Removed in ClickPad: stay off until the connection is saved or re-enabled here.
+					this.connection?.stop()
+					this.connected = false
+					this.connectionState = 'offline'
+					this.state = { ...EMPTY_STATE }
+					this.log('warn', 'ClickPad removed this connection (Settings › Network).')
+					this.updateStatus(
+						InstanceStatus.Disconnected,
+						'Removed by ClickPad. Save this connection or turn it off and on to reconnect.',
+					)
+					this.publish()
+					return
+				}
 				const state = parseState(text)
 				if (!state) return
 				this.state = state

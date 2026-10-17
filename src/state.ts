@@ -190,6 +190,15 @@ export function commandFor(id: ControlId): string {
 	return JSON.stringify({ action: control?.app ?? id })
 }
 
+/** True for ClickPad's "removed" message (Settings › Network › Remove): stop reconnecting. */
+export function isRemovedMessage(text: string): boolean {
+	try {
+		return (JSON.parse(text) as { type?: unknown })?.type === 'removed'
+	} catch {
+		return false
+	}
+}
+
 /** Sent when connecting, so ClickPad's Settings › Remote lists this connection as Companion, by name. */
 export function helloCommand(name: string): string {
 	return JSON.stringify({ action: 'hello', name, client: 'companion' })

@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { commandFor, CONTROLS, helloCommand, parseState, selectSongCommand, variableValues } from '../dist/state.js'
+import {
+	commandFor,
+	CONTROLS,
+	helloCommand,
+	isRemovedMessage,
+	parseState,
+	selectSongCommand,
+	variableValues,
+} from '../dist/state.js'
 
 const sample = JSON.stringify({
 	type: 'state',
@@ -110,4 +118,10 @@ test('introduces itself to ClickPad as Companion', () => {
 		name: 'Companion (clickpad)',
 		client: 'companion',
 	})
+})
+
+test('recognises being removed by ClickPad', () => {
+	assert.equal(isRemovedMessage('{"type":"removed"}'), true)
+	assert.equal(isRemovedMessage('{"type":"state"}'), false)
+	assert.equal(isRemovedMessage('not json'), false)
 })
