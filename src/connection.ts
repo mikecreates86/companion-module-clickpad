@@ -1,6 +1,6 @@
 /**
  * Keeps a WebSocket connection to ClickPad open, reconnecting by itself (every 2 s, then up to
- * every 10 s) whenever it drops: ClickPad restarting, the Mac sleeping, a network blip.
+ * every 10 s) whenever it drops: ClickPad restarting, the device sleeping, a network blip.
  * Uses Node's built-in WebSocket, so the module has no extra dependencies.
  */
 export interface ConnectionEvents {

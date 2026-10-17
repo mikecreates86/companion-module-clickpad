@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Help and settings point to ClickPad's current Settings › Network, and use device-neutral wording (ClickPad may run on Mac or iPad).
+
 ## 1.2.0
 
 - Song buttons show the song's title and key: new variables `song_1_title` … `song_20_title` and `song_1_key` … `song_20_key`.

@@ -6,11 +6,11 @@ Control **ClickPad** (the click, pads and song announcements app for worship tea
 
 ### Setup
 
-1. In ClickPad, open **Settings › Companion** and turn on **Allow Companion to connect**. It shows the Mac's address and the port (normally `9330`).
-2. In Companion, add a **ClickPad** connection and enter that address and port. Use `127.0.0.1` if Companion runs on the same Mac as ClickPad.
+1. In ClickPad, open **Settings › Network** and turn on **Allow remotes and Companion**. It shows the device's address and the port (normally `9330`).
+2. In Companion, add a **ClickPad** connection and enter that address and port. Use `127.0.0.1` if Companion runs on the same device as ClickPad.
 3. The connection turns green when connected, and ClickPad lists it under **Settings › Remote › Connected now** as "Companion (your connection's name)". If ClickPad is closed or restarts, Companion reconnects by itself.
 
-The first time, macOS may ask whether ClickPad may accept incoming network connections: choose **Allow**.
+The first time, your device may ask whether ClickPad may accept incoming network connections: choose **Allow**.
 
 ### Presets
 
