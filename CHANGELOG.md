@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- Song buttons show the song's title and key: new variables `song_1_title` … `song_20_title` and `song_1_key` … `song_20_key`.
+- Levels: new actions **Level Up/Down** and **Set Level** for the click, pad and song name, variables `click_volume`, `pad_volume`, `song_name_volume`, and a Levels preset group.
+
 ## 1.1.2
 
 - If ClickPad removes this connection (Settings › Network › Remove), it stays off instead of reconnecting, and says so. Save the connection or turn it off and on to reconnect.

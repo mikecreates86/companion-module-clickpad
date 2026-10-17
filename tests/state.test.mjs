@@ -5,6 +5,7 @@ import {
 	CONTROLS,
 	helloCommand,
 	isRemovedMessage,
+	levelCommand,
 	parseState,
 	selectSongCommand,
 	variableValues,
@@ -124,4 +125,21 @@ test('recognises being removed by ClickPad', () => {
 	assert.equal(isRemovedMessage('{"type":"removed"}'), true)
 	assert.equal(isRemovedMessage('{"type":"state"}'), false)
 	assert.equal(isRemovedMessage('not json'), false)
+})
+
+test('song titles and keys, and levels, become variables', () => {
+	const state = parseState(
+		JSON.stringify({ type: 'state', songTitles: ['Forever YHWH', 'Remembrance'], songKeys: ['E', 'A'], padVolume: 70 }),
+	)
+	const values = variableValues(state, 'connected')
+	assert.equal(values.song_1_title, 'Forever YHWH')
+	assert.equal(values.song_2_key, 'A')
+	assert.equal(values.song_3_title, '')
+	assert.equal(values.pad_volume, 70)
+	assert.equal(values.click_volume, 100)
+})
+
+test('level commands', () => {
+	assert.deepEqual(JSON.parse(levelCommand('pad', { by: -10 })), { action: 'adjustLevel', layer: 'pad', by: -10 })
+	assert.deepEqual(JSON.parse(levelCommand('click', { to: 80 })), { action: 'adjustLevel', layer: 'click', to: 80 })
 })

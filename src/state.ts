@@ -34,6 +34,13 @@ export interface ClickPadState {
 	mainName: string
 	/** Names of the remote ClickPads connected to it right now. */
 	remoteNames: string[]
+	/** Volume of each sound, 0–100 (ClickPad › Settings › Audio › Levels). */
+	clickVolume: number
+	padVolume: number
+	songNameVolume: number
+	/** Every song in the set list, in order (for song button labels). */
+	songTitles: string[]
+	songKeys: string[]
 }
 
 export const EMPTY_STATE: ClickPadState = {
@@ -66,7 +73,15 @@ export const EMPTY_STATE: ClickPadState = {
 	outputOK: false,
 	mainName: '',
 	remoteNames: [],
+	clickVolume: 100,
+	padVolume: 100,
+	songNameVolume: 100,
+	songTitles: [],
+	songKeys: [],
 }
+
+/** How many songs get their own title and key variables (song_1_title … song_20_title). */
+export const SONG_VARIABLES = 20
 
 /** Reads a message from ClickPad. Returns undefined for anything that isn't a state message. */
 export function parseState(text: string): ClickPadState | undefined {
@@ -113,6 +128,15 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	clickpad_name: { name: "ClickPad's name (set in ClickPad › Settings › Remote)" },
 	remote_count: { name: 'Number of remote ClickPads connected' },
 	remote_names: { name: 'Names of the remote ClickPads connected, e.g. "Keys Laptop, Drums"' },
+	click_volume: { name: 'Click level (0–100)' },
+	pad_volume: { name: 'Pad level (0–100)' },
+	song_name_volume: { name: 'Song name (announcement) level (0–100)' },
+	...Object.fromEntries(
+		Array.from({ length: SONG_VARIABLES }, (_, i) => i + 1).flatMap((n) => [
+			[`song_${n}_title`, { name: `Song ${n} in the set list: title` }],
+			[`song_${n}_key`, { name: `Song ${n} in the set list: key` }],
+		]),
+	),
 }
 
 const capital = (text: string) => (text ? text[0].toUpperCase() + text.slice(1) : '')
@@ -161,6 +185,15 @@ export function variableValues(
 		clickpad_name: state.mainName,
 		remote_count: Array.isArray(state.remoteNames) ? state.remoteNames.length : 0,
 		remote_names: Array.isArray(state.remoteNames) ? state.remoteNames.join(', ') : '',
+		click_volume: state.clickVolume,
+		pad_volume: state.padVolume,
+		song_name_volume: state.songNameVolume,
+		...Object.fromEntries(
+			Array.from({ length: SONG_VARIABLES }, (_, i) => i + 1).flatMap((n) => [
+				[`song_${n}_title`, (Array.isArray(state.songTitles) && state.songTitles[n - 1]) || ''],
+				[`song_${n}_key`, (Array.isArray(state.songKeys) && state.songKeys[n - 1]) || ''],
+			]),
+		),
 	}
 }
 
@@ -188,6 +221,13 @@ export type ControlId = (typeof CONTROLS)[number]['id']
 export function commandFor(id: ControlId): string {
 	const control = CONTROLS.find((c) => c.id === id)
 	return JSON.stringify({ action: control?.app ?? id })
+}
+
+export type LevelLayer = 'click' | 'pad' | 'songName'
+
+/** Changes a sound's level by `by` percent (e.g. -10), or sets it exactly with `to`. */
+export function levelCommand(layer: LevelLayer, change: { by?: number; to?: number }): string {
+	return JSON.stringify({ action: 'adjustLevel', layer, ...change })
 }
 
 /** True for ClickPad's "removed" message (Settings › Network › Remove): stop reconnecting. */

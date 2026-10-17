@@ -25,6 +25,19 @@ export function UpdatePresets(self: ModuleInstance): void {
 				{ id: 'controls', name: 'ClickPad controls', type: 'simple', presets: CONTROLS.map((c) => c.id) },
 				{ id: 'songs', name: 'Select song', type: 'simple', presets: songNumbers.map((n) => `select_song_${n}`) },
 				{
+					id: 'levels',
+					name: 'Levels',
+					type: 'simple',
+					presets: [
+						'level_click_down',
+						'level_click_up',
+						'level_pad_down',
+						'level_pad_up',
+						'level_song_name_down',
+						'level_song_name_up',
+					],
+				},
+				{
 					id: 'display',
 					name: 'Status displays',
 					type: 'simple',
@@ -102,9 +115,47 @@ export function UpdatePresets(self: ModuleInstance): void {
 		presets[`select_song_${n}`] = {
 			type: 'simple',
 			name: `Select song ${n}`,
-			style: { text: `SONG\n${n}`, size: 'auto', color: WHITE, bgcolor: DARK, show_topbar: false },
+			// Shows the song's title (and key) from the set list, e.g. "2 · Forever YHWH · E".
+			style: {
+				text: `${n} · $(${v}:song_${n}_title)\n$(${v}:song_${n}_key)`,
+				size: 14,
+				color: WHITE,
+				bgcolor: DARK,
+				show_topbar: false,
+			},
 			steps: [{ down: [{ actionId: 'select_song', options: { song: n } }], up: [] }],
 			feedbacks: [{ feedbackId: 'current_song', options: { song: n }, style: { bgcolor: GREEN } }],
+		}
+	}
+
+	// Levels: down / up buttons for each sound, showing the current level.
+	const levelButtons: [string, string, string, number][] = [
+		['level_click_down', 'Click level down', 'click', -10],
+		['level_click_up', 'Click level up', 'click', 10],
+		['level_pad_down', 'Pad level down', 'pad', -10],
+		['level_pad_up', 'Pad level up', 'pad', 10],
+		['level_song_name_down', 'Song name level down', 'songName', -10],
+		['level_song_name_up', 'Song name level up', 'songName', 10],
+	]
+	const levelVariable: Record<string, string> = {
+		click: 'click_volume',
+		pad: 'pad_volume',
+		songName: 'song_name_volume',
+	}
+	const levelLabel: Record<string, string> = { click: 'CLICK', pad: 'PAD', songName: 'NAME' }
+	for (const [id, name, layer, by] of levelButtons) {
+		presets[id] = {
+			type: 'simple',
+			name,
+			style: {
+				text: `${levelLabel[layer]} ${by < 0 ? '−' : '+'}\n$(${v}:${levelVariable[layer]})%`,
+				size: 14,
+				color: WHITE,
+				bgcolor: DARK,
+				show_topbar: false,
+			},
+			steps: [{ down: [{ actionId: 'level_adjust', options: { layer, by } }], up: [] }],
+			feedbacks: [],
 		}
 	}
 

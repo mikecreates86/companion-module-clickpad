@@ -1,7 +1,6 @@
 ## What's new
 
-- ClickPad can now remove this connection from **Settings › Network**. When it does, the connection stays off instead of reconnecting, and its status says so. Save the connection or turn it off and on to reconnect.
+- **Song buttons show real names.** The Select Song presets now read e.g. "2 · Forever YHWH" with the key underneath, from new variables `song_1_title` … `song_20_title` and `song_1_key` … `song_20_key`. Drag them onto your buttons again to replace the old "SONG 2" ones.
+- **Levels.** Turn the click, pad or song name up and down from a button: new actions Level Up/Down and Set Level, a Levels preset group, and variables `click_volume`, `pad_volume`, `song_name_volume`.
 
-- **Fixed:** the status display presets (song title, key, tempo, next song, click and pad) showed "$NA". They now show the live values. Drag them onto your buttons again to replace the old ones.
-- The **Start/Stop** preset reads START, and STOP while the click runs, so it no longer looks the same as GO.
-- From 1.1.0: new variables **clickpad_name**, **remote_count** and **remote_names**, and ClickPad lists this connection by name under Settings › Network.
+Needs ClickPad from October 17, 2026 or later; older ClickPads leave these empty.
