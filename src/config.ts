@@ -18,7 +18,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 		{
 			type: 'textinput',
 			id: 'host',
-			label: 'ClickPad computer address',
+			label: 'ClickPad device address',
 			tooltip:
 				'The IP address shown in ClickPad › Settings › Network. Use 127.0.0.1 if Companion runs on the same device. Give the ClickPad device a fixed (static or DHCP-reserved) IP address so it cannot change between services.',
 			width: 8,

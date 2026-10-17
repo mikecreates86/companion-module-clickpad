@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- Device-neutral wording in settings and variable descriptions ("device address").
+
 ## 1.2.1
 
 - Help and settings point to ClickPad's current Settings › Network, and use device-neutral wording (ClickPad may run on Mac or iPad).

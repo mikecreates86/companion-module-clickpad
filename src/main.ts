@@ -74,7 +74,7 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		const host = (this.config.host ?? '').trim()
 		const port = Number(this.config.port)
 		if (!host || !Number.isInteger(port) || port < 1 || port > 65535) {
-			this.updateStatus(InstanceStatus.BadConfig, 'Enter the ClickPad computer address and port')
+			this.updateStatus(InstanceStatus.BadConfig, 'Enter the ClickPad device address and port')
 			return
 		}
 		this.updateStatus(InstanceStatus.Connecting, `Connecting to ClickPad at ${host}:${port}`)

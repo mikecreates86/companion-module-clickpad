@@ -127,7 +127,7 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	audio_output: { name: 'ClickPad audio output name' },
 	clickpad_name: { name: "ClickPad's name (set in ClickPad › Settings › Remote)" },
 	remote_count: { name: 'Number of remote ClickPads connected' },
-	remote_names: { name: 'Names of the remote ClickPads connected, e.g. "Keys Laptop, Drums"' },
+	remote_names: { name: 'Names of the remote ClickPads connected, e.g. "Keys, Drums"' },
 	click_volume: { name: 'Click level (0–100)' },
 	pad_volume: { name: 'Pad level (0–100)' },
 	song_name_volume: { name: 'Song name (announcement) level (0–100)' },
