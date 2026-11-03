@@ -61,9 +61,9 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		return GetConfigFields()
 	}
 
-	/** Sends a command to ClickPad. Logs (instead of failing) when ClickPad isn't connected. */
+	/** Sends a command to Anchor. Logs (instead of failing) when Anchor isn't connected. */
 	send(text: string): void {
-		if (!this.connection?.send(text)) this.log('warn', 'ClickPad is not connected; the button press was not sent')
+		if (!this.connection?.send(text)) this.log('warn', 'Anchor is not connected; the button press was not sent')
 	}
 
 	private connect(): void {
@@ -74,13 +74,13 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		const host = (this.config.host ?? '').trim()
 		const port = Number(this.config.port)
 		if (!host || !Number.isInteger(port) || port < 1 || port > 65535) {
-			this.updateStatus(InstanceStatus.BadConfig, 'Enter the ClickPad device address and port')
+			this.updateStatus(InstanceStatus.BadConfig, 'Enter the Anchor device address and port')
 			return
 		}
-		this.updateStatus(InstanceStatus.Connecting, `Connecting to ClickPad at ${host}:${port}`)
+		this.updateStatus(InstanceStatus.Connecting, `Connecting to Anchor at ${host}:${port}`)
 		const connection = new ClickPadConnection(`ws://${host.includes(':') ? `[${host}]` : host}:${port}`, {
 			onOpen: () => {
-				if (this.everConnected) this.log('info', 'Reconnected to ClickPad')
+				if (this.everConnected) this.log('info', 'Reconnected to Anchor')
 				this.everConnected = true
 				this.outageLogged = false
 				this.connected = true
@@ -102,21 +102,21 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 				}
 				this.updateStatus(
 					InstanceStatus.ConnectionFailure,
-					`${reason}. Check ClickPad is open and Settings › Network › Allow remotes and Companion is on.`,
+					`${reason}. Check Anchor is open and Setup › Allow remotes and Companion is on.`,
 				)
 				if (wasConnected) this.publish()
 			},
 			onMessage: (text) => {
 				if (isRemovedMessage(text)) {
-					// Removed in ClickPad: stay off until the connection is saved or re-enabled here.
+					// Removed in Anchor: stay off until the connection is saved or re-enabled here.
 					this.connection?.stop()
 					this.connected = false
 					this.connectionState = 'offline'
 					this.state = { ...EMPTY_STATE }
-					this.log('warn', 'ClickPad removed this connection (Settings › Network).')
+					this.log('warn', 'Anchor removed this connection (Setup › Remotes and Companion).')
 					this.updateStatus(
 						InstanceStatus.Disconnected,
-						'Removed by ClickPad. Save this connection or turn it off and on to reconnect.',
+						'Removed by Anchor. Save this connection or turn it off and on to reconnect.',
 					)
 					this.publish()
 					return

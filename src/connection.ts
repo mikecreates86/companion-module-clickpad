@@ -1,6 +1,6 @@
 /**
- * Keeps a WebSocket connection to ClickPad open, reconnecting by itself (every 2 s, then up to
- * every 10 s) whenever it drops: ClickPad restarting, the device sleeping, a network blip.
+ * Keeps a WebSocket connection to Anchor open, reconnecting by itself (every 2 s, then up to
+ * every 10 s) whenever it drops: Anchor restarting, the device sleeping, a network blip.
  * Uses Node's built-in WebSocket, so the module has no extra dependencies.
  */
 export interface ConnectionEvents {
@@ -69,7 +69,7 @@ export class ClickPadConnection {
 		socket.onclose = () => {
 			if (this.socket !== socket) return
 			this.socket = undefined
-			this.events.onClose('Not connected to ClickPad')
+			this.events.onClose('Not connected to Anchor')
 			this.scheduleRetry()
 		}
 	}

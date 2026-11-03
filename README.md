@@ -1,6 +1,6 @@
 # companion-module-clickpad
 
-Bitfocus Companion module for **ClickPad**, the click, pads and song-announcement app for worship teams, and for **Anchor**, ClickPad with tracks. Website: [clickpad.app](https://clickpad.app)
+Bitfocus Companion module for **Anchor**, the click, pads, tracks and song-announcement app for worship teams. It was called ClickPad until version 1.3.1 and still works with ClickPad.
 
 ## Download
 
@@ -10,7 +10,7 @@ Open **Releases** (right side of this page), click the **Latest** release, and d
 
 See [companion/HELP.md](companion/HELP.md).
 
-### For Anchor (version 1.3.0 and later)
+### Added for Anchor (version 1.3.0 and later)
 
 |          | Name                          | What it does                                                                         |
 | -------- | ----------------------------- | ------------------------------------------------------------------------------------ |
@@ -28,6 +28,10 @@ See [companion/HELP.md](companion/HELP.md).
 
 ClickPad doesn't send problems or a section, so with ClickPad these stay empty and the feedback stays off. Everything else works the same with both apps.
 
+### About the rename
+
+Only the names you see changed (in Companion, the help and the release notes). The module's internal ID stays `clickpad`, and so do the variable names and the download's file name (`clickpad-<version>.tgz`), so existing connections and buttons keep working. Changing the ID would make Companion treat it as a different module.
+
 ## Sharing status
 
 - Private for now; not yet submitted to the Bitfocus module list.
@@ -36,4 +40,4 @@ ClickPad doesn't send problems or a section, so with ClickPad these stay empty a
 
 ## Contract with the app
 
-ClickPad sends `{"type":"state", ...}` JSON over a WebSocket (default port 9330) whenever anything changes, and accepts `{"action":"<name>"}` and `{"action":"selectSong","song":N}`. Anchor sends the same messages plus `problems` (list of text) and `section` (text), and also accepts `engage`, `padsStop`, `fade` and `loop`. Field and action names are shared with the app, so only add fields; never rename or remove them.
+Anchor (like ClickPad before it) sends `{"type":"state", ...}` JSON over a WebSocket (default port 9330) whenever anything changes, and accepts `{"action":"<name>"}` and `{"action":"selectSong","song":N}`. Anchor sends the same messages plus `problems` (list of text) and `section` (text), and also accepts `engage`, `padsStop`, `fade` and `loop`. Field and action names are shared with the app, so only add fields; never rename or remove them.

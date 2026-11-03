@@ -20,9 +20,9 @@ export function UpdatePresets(self: ModuleInstance): void {
 	const structure: CompanionPresetSection[] = [
 		{
 			id: 'clickpad',
-			name: 'ClickPad',
+			name: 'Anchor',
 			definitions: [
-				{ id: 'controls', name: 'ClickPad controls', type: 'simple', presets: CONTROLS.map((c) => c.id) },
+				{ id: 'controls', name: 'Anchor controls', type: 'simple', presets: CONTROLS.map((c) => c.id) },
 				{ id: 'songs', name: 'Select song', type: 'simple', presets: songNumbers.map((n) => `select_song_${n}`) },
 				{
 					id: 'levels',
@@ -100,10 +100,10 @@ export function UpdatePresets(self: ModuleInstance): void {
 		},
 	}
 
-	presets.display_section = info('Section playing (Anchor)', `$(${v}:section)`, 18)
+	presets.display_section = info('Section playing', `$(${v}:section)`, 18)
 	// Offstage fault banner: blank when all is well, red with the first problem when not.
 	presets.display_problems = {
-		...info('Problem banner (Anchor)', `$(${v}:problem)`, 14),
+		...info('Problem banner', `$(${v}:problem)`, 14),
 		feedbacks: [{ feedbackId: 'has_problems', options: {}, style: { bgcolor: RED, color: WHITE } }],
 	}
 

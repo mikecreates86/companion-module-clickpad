@@ -104,7 +104,7 @@ export function parseState(text: string): ClickPadState | undefined {
 
 /** Variable names follow the MultiTracks Playback module, so Stream Deck pages read the same way. */
 export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
-	connection_state: { name: 'ClickPad connection (connected/connecting/offline)' },
+	connection_state: { name: 'Anchor connection (connected/connecting/offline)' },
 	reconnect_count: { name: 'Connection drops since Companion started this connection' },
 	setlist_name: { name: 'Set list name' },
 	setlist_song_count: { name: 'Number of songs in the set list' },
@@ -130,17 +130,17 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	beat: { name: 'Beat in the bar (0 when not playing)' },
 	pad_play_state: { name: 'Pad play state (playing/stopped)' },
 	announcing: { name: 'Announcement speaking (true/false)' },
-	audio_output: { name: 'ClickPad audio output name' },
-	clickpad_name: { name: "ClickPad's name (set in ClickPad › Settings › Remote)" },
-	remote_count: { name: 'Number of remote ClickPads connected' },
-	remote_names: { name: 'Names of the remote ClickPads connected, e.g. "Keys, Drums"' },
+	audio_output: { name: 'Anchor audio output name' },
+	clickpad_name: { name: "This Anchor's name (set in Anchor › Setup › Remotes and Companion)" },
+	remote_count: { name: 'Number of remotes connected' },
+	remote_names: { name: 'Names of the remotes connected, e.g. "Keys, Drums"' },
 	click_volume: { name: 'Click level (0–100)' },
 	pad_volume: { name: 'Pad level (0–100)' },
 	song_name_volume: { name: 'Song name (announcement) level (0–100)' },
-	section: { name: 'Section playing now, e.g. "verse 2" (Anchor; empty otherwise)' },
-	problem_count: { name: 'Number of problems right now (Anchor; 0 when all is well)' },
-	problem: { name: 'The first problem, in plain English (Anchor; empty when all is well)' },
-	problems: { name: 'Every problem, separated by " · " (Anchor; empty when all is well)' },
+	section: { name: 'Section playing now, e.g. "verse 2" (empty otherwise)' },
+	problem_count: { name: 'Number of problems right now (0 when all is well)' },
+	problem: { name: 'The first problem, in plain English (empty when all is well)' },
+	problems: { name: 'Every problem, separated by " · " (empty when all is well)' },
 	...Object.fromEntries(
 		Array.from({ length: SONG_VARIABLES }, (_, i) => i + 1).flatMap((n) => [
 			[`song_${n}_title`, { name: `Song ${n} in the set list: title` }],
@@ -234,11 +234,11 @@ export const CONTROLS = [
 	{ id: 'pad_on', app: 'padStart', name: 'Pad On', text: 'PAD\nON' },
 	{ id: 'pad_off', app: 'padStop', name: 'Pad Off', text: 'PAD\nOFF' },
 	{ id: 'stop_all', app: 'stopAll', name: 'Stop All', text: 'STOP\nALL' },
-	// Anchor only (ClickPad ignores them).
-	{ id: 'pads_engage', app: 'engage', name: 'Pads: Engage (Anchor)', text: 'ENGAGE' },
-	{ id: 'pads_stop', app: 'padsStop', name: 'Pads: Stop (Anchor)', text: 'PADS\nSTOP' },
-	{ id: 'fade', app: 'fade', name: 'Fade Song (Anchor tracks)', text: 'FADE' },
-	{ id: 'loop', app: 'loop', name: 'Loop Section (Anchor tracks)', text: 'LOOP' },
+	// Anchor only (older ClickPad ignores them).
+	{ id: 'pads_engage', app: 'engage', name: 'Pads: Engage', text: 'ENGAGE' },
+	{ id: 'pads_stop', app: 'padsStop', name: 'Pads: Stop', text: 'PADS\nSTOP' },
+	{ id: 'fade', app: 'fade', name: 'Fade Song', text: 'FADE' },
+	{ id: 'loop', app: 'loop', name: 'Loop Section', text: 'LOOP' },
 ] as const
 
 export type ControlId = (typeof CONTROLS)[number]['id']

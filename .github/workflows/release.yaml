@@ -88,7 +88,7 @@ jobs:
             echo
             echo "1. Under **Assets** below, click **clickpad-${VERSION}.tgz** to download it."
             echo "2. In Companion, open the **Modules** page and import that file."
-            echo "3. Select version ${VERSION} on your ClickPad connection."
+            echo "3. Select version ${VERSION} on your Anchor connection (named ClickPad in older versions)."
             echo
             if [ "$IS_MAIN" != "true" ]; then
               echo "_Test version from \`${GITHUB_REF_NAME}\`. It is not the Latest release._"

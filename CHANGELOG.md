@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1
+
+- Renamed to **Anchor** everywhere you see it: the connection type, settings, status messages, presets, help and feedback names. Setup now points to Anchor › Setup › Remotes and Companion.
+- Nothing to redo: the internal ID and variable names are unchanged, so existing connections and buttons keep working. Still works with ClickPad.
+
 ## 1.3.0
 
 - Works with Anchor (ClickPad with tracks) as well as ClickPad.
