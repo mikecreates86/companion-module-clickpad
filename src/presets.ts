@@ -48,6 +48,8 @@ export function UpdatePresets(self: ModuleInstance): void {
 						'display_key_tempo',
 						'display_next',
 						'display_status',
+						'display_section',
+						'display_problems',
 					],
 				},
 			],
@@ -77,6 +79,10 @@ export function UpdatePresets(self: ModuleInstance): void {
 		pad_on: { bgcolor: DARK, lit: { feedbackId: 'pad_on', bgcolor: TEAL } },
 		pad_off: { bgcolor: DARK },
 		stop_all: { bgcolor: RED },
+		pads_engage: { bgcolor: TEAL },
+		pads_stop: { bgcolor: DARK },
+		fade: { bgcolor: AMBER },
+		loop: { bgcolor: DARK },
 	}
 
 	const presets: Record<string, unknown> = {
@@ -92,6 +98,13 @@ export function UpdatePresets(self: ModuleInstance): void {
 				{ feedbackId: 'connected', options: {}, isInverted: true, style: { bgcolor: RED, color: WHITE } },
 			],
 		},
+	}
+
+	presets.display_section = info('Section playing (Anchor)', `$(${v}:section)`, 18)
+	// Offstage fault banner: blank when all is well, red with the first problem when not.
+	presets.display_problems = {
+		...info('Problem banner (Anchor)', `$(${v}:problem)`, 14),
+		feedbacks: [{ feedbackId: 'has_problems', options: {}, style: { bgcolor: RED, color: WHITE } }],
 	}
 
 	for (const control of CONTROLS) {

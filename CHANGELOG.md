@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+- Works with Anchor (ClickPad with tracks) as well as ClickPad.
+- New actions: **Pads: Engage**, **Pads: Stop**, **Fade Song**, **Loop Section** (Anchor).
+- New variables: `section`, `problem`, `problems`, `problem_count` (Anchor; empty with ClickPad).
+- New feedback **Something Needs Attention**, and presets **Problem banner** and **Section playing**, for an offstage fault banner.
+
 ## 1.2.2
 
 - Device-neutral wording in settings and variable descriptions ("device address").

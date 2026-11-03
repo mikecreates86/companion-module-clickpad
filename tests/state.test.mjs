@@ -7,6 +7,7 @@ import {
 	isRemovedMessage,
 	levelCommand,
 	parseState,
+	problemList,
 	selectSongCommand,
 	variableValues,
 } from '../dist/state.js'
@@ -91,7 +92,15 @@ test('sends the action names ClickPad understands', () => {
 		'padStart',
 		'padStop',
 		'stopAll',
+		'engage',
+		'padsStop',
+		'fade',
+		'loop',
 	])
+	assert.equal(commandFor('pads_engage'), '{"action":"engage"}')
+	assert.equal(commandFor('pads_stop'), '{"action":"padsStop"}')
+	assert.equal(commandFor('fade'), '{"action":"fade"}')
+	assert.equal(commandFor('loop'), '{"action":"loop"}')
 	assert.equal(commandFor('go'), '{"action":"go"}')
 	assert.equal(commandFor('toggle_pad'), '{"action":"padToggle"}')
 	assert.equal(commandFor('start_stop'), '{"action":"startStopToggle"}')
@@ -142,4 +151,32 @@ test('song titles and keys, and levels, become variables', () => {
 test('level commands', () => {
 	assert.deepEqual(JSON.parse(levelCommand('pad', { by: -10 })), { action: 'adjustLevel', layer: 'pad', by: -10 })
 	assert.deepEqual(JSON.parse(levelCommand('click', { to: 80 })), { action: 'adjustLevel', layer: 'click', to: 80 })
+})
+
+test('Anchor problems and section become variables', () => {
+	const state = parseState(
+		JSON.stringify({ type: 'state', section: 'verse 2', problems: ['Audio output not found', 'Pad missing'] }),
+	)
+	const values = variableValues(state, 'connected')
+	assert.equal(values.section, 'verse 2')
+	assert.equal(values.problem_count, 2)
+	assert.equal(values.problem, 'Audio output not found')
+	assert.equal(values.problems, 'Audio output not found · Pad missing')
+	assert.deepEqual(problemList(state), ['Audio output not found', 'Pad missing'])
+})
+
+test('ClickPad (no problems or section sent) leaves them empty', () => {
+	const state = parseState(sample)
+	const values = variableValues(state, 'connected')
+	assert.equal(values.section, '')
+	assert.equal(values.problem_count, 0)
+	assert.equal(values.problem, '')
+	assert.equal(values.problems, '')
+	assert.deepEqual(problemList(state), [])
+	// Anything odd in the list is ignored rather than shown.
+	const odd = parseState(JSON.stringify({ type: 'state', problems: 'oops', section: 5 }))
+	assert.equal(variableValues(odd, 'connected').problem_count, 0)
+	assert.equal(variableValues(odd, 'connected').section, '')
+	const mixed = parseState(JSON.stringify({ type: 'state', problems: ['', 3, 'Click output off'] }))
+	assert.equal(variableValues(mixed, 'connected').problem, 'Click output off')
 })

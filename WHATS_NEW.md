@@ -1,8 +1,8 @@
 ## What's new
 
-- Help and settings now point to ClickPad's **Settings › Network › Allow remotes and Companion**, with device-neutral wording.
+- **Works with Anchor.** Anchor speaks the same language as ClickPad, so your existing connection and buttons keep working.
+- **New buttons for Anchor:** Pads: Engage and Pads: Stop (the Pads screen), Fade Song (fades the tracks song playing) and Loop Section (loops the section playing now). Find them under Presets › ClickPad controls.
+- **Offstage problem banner.** New preset **Problem banner** (under Status displays) stays blank when all is well and turns red with the problem in plain English when something needs attention. Also new: the **Something Needs Attention** feedback and the variables `problem`, `problems` and `problem_count`.
+- **Section playing.** New variable `section` (e.g. "verse 2") and a **Section playing** preset.
 
-- **Song buttons show real names.** The Select Song presets now read e.g. "2 · Forever YHWH" with the key underneath, from new variables `song_1_title` … `song_20_title` and `song_1_key` … `song_20_key`. Drag them onto your buttons again to replace the old "SONG 2" ones.
-- **Levels.** Turn the click, pad or song name up and down from a button: new actions Level Up/Down and Set Level, a Levels preset group, and variables `click_volume`, `pad_volume`, `song_name_volume`.
-
-Needs ClickPad from October 17, 2026 or later; older ClickPads leave these empty.
+With ClickPad, the new variables stay empty and the new buttons do nothing.

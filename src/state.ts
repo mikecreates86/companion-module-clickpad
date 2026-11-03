@@ -41,6 +41,10 @@ export interface ClickPadState {
 	/** Every song in the set list, in order (for song button labels). */
 	songTitles: string[]
 	songKeys: string[]
+	/** Anchor: what's wrong right now, in plain English (the red dot's list). Empty when all is well. */
+	problems: string[]
+	/** Anchor: the section of a tracks song playing now, e.g. "verse 2" ("" otherwise). */
+	section: string
 }
 
 export const EMPTY_STATE: ClickPadState = {
@@ -78,6 +82,8 @@ export const EMPTY_STATE: ClickPadState = {
 	songNameVolume: 100,
 	songTitles: [],
 	songKeys: [],
+	problems: [],
+	section: '',
 }
 
 /** How many songs get their own title and key variables (song_1_title … song_20_title). */
@@ -131,6 +137,10 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	click_volume: { name: 'Click level (0–100)' },
 	pad_volume: { name: 'Pad level (0–100)' },
 	song_name_volume: { name: 'Song name (announcement) level (0–100)' },
+	section: { name: 'Section playing now, e.g. "verse 2" (Anchor; empty otherwise)' },
+	problem_count: { name: 'Number of problems right now (Anchor; 0 when all is well)' },
+	problem: { name: 'The first problem, in plain English (Anchor; empty when all is well)' },
+	problems: { name: 'Every problem, separated by " · " (Anchor; empty when all is well)' },
 	...Object.fromEntries(
 		Array.from({ length: SONG_VARIABLES }, (_, i) => i + 1).flatMap((n) => [
 			[`song_${n}_title`, { name: `Song ${n} in the set list: title` }],
@@ -140,6 +150,12 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 }
 
 const capital = (text: string) => (text ? text[0].toUpperCase() + text.slice(1) : '')
+
+/** The problems Anchor reports, ignoring anything that isn't text. ClickPad sends none. */
+export function problemList(state: ClickPadState): string[] {
+	if (!Array.isArray(state.problems)) return []
+	return state.problems.filter((p): p is string => typeof p === 'string' && p.trim() !== '')
+}
 
 /** All variable values for a state. */
 export function variableValues(
@@ -153,6 +169,7 @@ export function variableValues(
 		countIn: 'count-in',
 		running: 'playing',
 	}
+	const problems = problemList(state)
 	return {
 		connection_state: connection,
 		reconnect_count: reconnectCount,
@@ -188,6 +205,10 @@ export function variableValues(
 		click_volume: state.clickVolume,
 		pad_volume: state.padVolume,
 		song_name_volume: state.songNameVolume,
+		section: typeof state.section === 'string' ? state.section : '',
+		problem_count: problems.length,
+		problem: problems[0] ?? '',
+		problems: problems.join(' · '),
 		...Object.fromEntries(
 			Array.from({ length: SONG_VARIABLES }, (_, i) => i + 1).flatMap((n) => [
 				[`song_${n}_title`, (Array.isArray(state.songTitles) && state.songTitles[n - 1]) || ''],
@@ -213,6 +234,11 @@ export const CONTROLS = [
 	{ id: 'pad_on', app: 'padStart', name: 'Pad On', text: 'PAD\nON' },
 	{ id: 'pad_off', app: 'padStop', name: 'Pad Off', text: 'PAD\nOFF' },
 	{ id: 'stop_all', app: 'stopAll', name: 'Stop All', text: 'STOP\nALL' },
+	// Anchor only (ClickPad ignores them).
+	{ id: 'pads_engage', app: 'engage', name: 'Pads: Engage (Anchor)', text: 'ENGAGE' },
+	{ id: 'pads_stop', app: 'padsStop', name: 'Pads: Stop (Anchor)', text: 'PADS\nSTOP' },
+	{ id: 'fade', app: 'fade', name: 'Fade Song (Anchor tracks)', text: 'FADE' },
+	{ id: 'loop', app: 'loop', name: 'Loop Section (Anchor tracks)', text: 'LOOP' },
 ] as const
 
 export type ControlId = (typeof CONTROLS)[number]['id']
