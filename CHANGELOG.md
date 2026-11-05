@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- New actions **Play** and **Stop** (Anchor): each does only that, so a missed or doubled press can never start a song you meant to stop, or stop one you meant to play. On Anchor's Pads screen, Play engages and Stop stops. Presets for both.
+- Start/Stop still toggles as before.
+
 ## 1.3.1
 
 - Renamed to **Anchor** everywhere you see it: the connection type, settings, status messages, presets, help and feedback names. Setup now points to Anchor › Setup › Remotes and Companion.

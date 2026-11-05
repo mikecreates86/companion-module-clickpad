@@ -14,6 +14,8 @@ See [companion/HELP.md](companion/HELP.md).
 
 |          | Name                          | What it does                                                                         |
 | -------- | ----------------------------- | ------------------------------------------------------------------------------------ |
+| Action   | **Play**                      | Plays (on the Pads screen, engages). Never stops anything (1.4.0)                    |
+| Action   | **Stop**                      | Stops (on the Pads screen, the pad). Never starts anything (1.4.0)                   |
 | Action   | **Pads: Engage**              | Engages Anchor's Pads screen                                                         |
 | Action   | **Pads: Stop**                | Stops Anchor's Pads screen                                                           |
 | Action   | **Fade Song**                 | Fades the tracks song playing                                                        |

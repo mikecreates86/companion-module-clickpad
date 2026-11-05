@@ -81,6 +81,8 @@ test('ignores anything that is not a state message, and fills missing fields', (
 test('sends the action names ClickPad understands', () => {
 	const app = CONTROLS.map((c) => c.app)
 	assert.deepEqual(app, [
+		'play',
+		'stop',
 		'startStopToggle',
 		'go',
 		'nextSong',
@@ -102,6 +104,8 @@ test('sends the action names ClickPad understands', () => {
 	assert.equal(commandFor('fade'), '{"action":"fade"}')
 	assert.equal(commandFor('loop'), '{"action":"loop"}')
 	assert.equal(commandFor('go'), '{"action":"go"}')
+	assert.equal(commandFor('play'), '{"action":"play"}')
+	assert.equal(commandFor('stop'), '{"action":"stop"}')
 	assert.equal(commandFor('toggle_pad'), '{"action":"padToggle"}')
 	assert.equal(commandFor('start_stop'), '{"action":"startStopToggle"}')
 	assert.equal(selectSongCommand(3), '{"action":"selectSong","song":3}')

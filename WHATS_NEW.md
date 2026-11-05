@@ -1,6 +1,5 @@
 ## What's new
 
-- **Now called Anchor.** The module shows as Anchor in Companion, and its help and settings point to Anchor's **Setup › Remotes and Companion**.
-- **Nothing to redo.** Your existing connection, buttons and variables keep working as they are, and it still works with ClickPad.
+- **Play and Stop buttons.** Each does only that: pressing Play twice never stops a song, and Stop never starts one. On Anchor's Pads screen, Play engages and Stop stops. Start/Stop still toggles if you prefer one button.
 
-Version 1.3.0 added Anchor's Pads: Engage, Pads: Stop, Fade Song and Loop Section buttons, the section variable, and the offstage Problem banner.
+Version 1.3.1 renamed the module to Anchor; 1.3.0 added Pads: Engage, Pads: Stop, Fade Song, Loop Section and the Problem banner.

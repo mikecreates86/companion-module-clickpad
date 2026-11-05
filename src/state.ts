@@ -223,6 +223,10 @@ export function variableValues(
  * action name (part of the contract with the app: don't change these).
  */
 export const CONTROLS = [
+	// Anchor only (older ClickPad ignores them): each does only that, so a missed press can never start a song
+	// that was meant to stop. Start/Stop toggles.
+	{ id: 'play', app: 'play', name: 'Play', text: 'PLAY' },
+	{ id: 'stop', app: 'stop', name: 'Stop', text: 'STOP' },
 	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (GO, or Stop Click)', text: 'START' },
 	{ id: 'go', app: 'go', name: 'GO (Pad, Announcement and Click)', text: 'GO' },
 	{ id: 'next_song', app: 'nextSong', name: 'Next Song', text: 'NEXT' },

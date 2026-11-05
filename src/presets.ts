@@ -68,6 +68,8 @@ export function UpdatePresets(self: ModuleInstance): void {
 		string,
 		{ bgcolor: number; lit?: { feedbackId: string; bgcolor: number; color?: number } }
 	> = {
+		play: { bgcolor: GREEN, lit: { feedbackId: 'click_running', bgcolor: 0x1f6b44 } },
+		stop: { bgcolor: DARK },
 		start_stop: { bgcolor: GREEN },
 		go: { bgcolor: GREEN, lit: { feedbackId: 'click_running', bgcolor: 0x1f6b44 } },
 		next_song: { bgcolor: TEAL },
