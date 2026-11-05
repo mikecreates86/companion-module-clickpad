@@ -20,6 +20,8 @@ See [companion/HELP.md](companion/HELP.md).
 | Action   | **Pads: Stop**                | Stops Anchor's Pads screen                                                           |
 | Action   | **Fade Song**                 | Fades the tracks song playing                                                        |
 | Action   | **Loop Section**              | Loops the section playing now                                                        |
+| Action   | **Next Section**              | Goes one section further when the section playing ends; each press one more (1.5.0)  |
+| Action   | **Previous Section**          | Goes one section earlier when the section playing ends; each press one more (1.5.0)  |
 | Feedback | **Something Needs Attention** | Red while Anchor reports a problem; off when all is well                             |
 | Variable | `section`                     | The section playing, e.g. "verse 2" (empty otherwise)                                |
 | Variable | `problem`                     | The first problem, in plain English (empty when all is well)                         |
@@ -42,4 +44,4 @@ Only the names you see changed (in Companion, the help and the release notes). T
 
 ## Contract with the app
 
-Anchor (like ClickPad before it) sends `{"type":"state", ...}` JSON over a WebSocket (default port 9330) whenever anything changes, and accepts `{"action":"<name>"}` and `{"action":"selectSong","song":N}`. Anchor sends the same messages plus `problems` (list of text) and `section` (text), and also accepts `engage`, `padsStop`, `fade` and `loop`. Field and action names are shared with the app, so only add fields; never rename or remove them.
+Anchor (like ClickPad before it) sends `{"type":"state", ...}` JSON over a WebSocket (default port 9330) whenever anything changes, and accepts `{"action":"<name>"}` and `{"action":"selectSong","song":N}`. Anchor sends the same messages plus `problems` (list of text) and `section` (text), and also accepts `engage`, `padsStop`, `fade`, `loop`, `nextSection` and `previousSection`. Field and action names are shared with the app, so only add fields; never rename or remove them.

@@ -85,6 +85,8 @@ export function UpdatePresets(self: ModuleInstance): void {
 		pads_stop: { bgcolor: DARK },
 		fade: { bgcolor: AMBER },
 		loop: { bgcolor: DARK },
+		next_section: { bgcolor: DARK },
+		previous_section: { bgcolor: DARK },
 	}
 
 	const presets: Record<string, unknown> = {

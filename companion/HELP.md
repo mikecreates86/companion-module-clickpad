@@ -22,7 +22,7 @@ The first time, your device may ask whether Anchor may accept incoming network c
 
 ### Actions
 
-Play and Stop (Anchor: each does only that, so a missed press can never start a song you meant to stop), Start/Stop, GO, Next Song, Previous Song, Toggle Click On/Off, Click On, Click Off, Toggle Pad On/Off, Pad On, Pad Off, Stop All, Select Song, Level Up/Down, Set Level, Pads: Engage and Pads: Stop (Anchor's Pads screen), Fade Song (fades the tracks song playing), Loop Section (loops the section playing now).
+Play and Stop (Anchor: each does only that, so a missed press can never start a song you meant to stop), Start/Stop, GO, Next Song, Previous Song, Toggle Click On/Off, Click On, Click Off, Toggle Pad On/Off, Pad On, Pad Off, Stop All, Select Song, Level Up/Down, Set Level, Pads: Engage and Pads: Stop (Anchor's Pads screen), Fade Song (fades the tracks song playing), Loop Section (loops the section playing now), Next Section and Previous Section (Anchor: where the song goes when the section playing ends; each press moves it one section, and Anchor shows it under Next).
 
 ### Feedbacks
 

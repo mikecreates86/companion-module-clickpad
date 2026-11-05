@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0
+
+- New actions **Next Section** and **Previous Section** (Anchor): each press moves where the song goes when the section playing ends one section later or earlier. Anchor shows it under Next; pressing back to the section that comes anyway lets the jump go. While a section loops, Next Section lets the loop go. Presets for both.
+
 ## 1.4.0
 
 - New actions **Play** and **Stop** (Anchor): each does only that, so a missed or doubled press can never start a song you meant to stop, or stop one you meant to play. On Anchor's Pads screen, Play engages and Stop stops. Presets for both.

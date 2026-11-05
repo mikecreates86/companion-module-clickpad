@@ -243,6 +243,9 @@ export const CONTROLS = [
 	{ id: 'pads_stop', app: 'padsStop', name: 'Pads: Stop', text: 'PADS\nSTOP' },
 	{ id: 'fade', app: 'fade', name: 'Fade Song', text: 'FADE' },
 	{ id: 'loop', app: 'loop', name: 'Loop Section', text: 'LOOP' },
+	// Anchor only: where the song goes when the section playing ends, one section later or earlier per press.
+	{ id: 'next_section', app: 'nextSection', name: 'Next Section', text: 'NEXT\nSECTION' },
+	{ id: 'previous_section', app: 'previousSection', name: 'Previous Section', text: 'PREV\nSECTION' },
 ] as const
 
 export type ControlId = (typeof CONTROLS)[number]['id']

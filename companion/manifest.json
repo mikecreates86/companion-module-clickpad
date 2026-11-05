@@ -5,7 +5,7 @@
 	"name": "Anchor",
 	"shortname": "Anchor",
 	"description": "Control Anchor (click, pads, tracks and song announcements for worship) and show the current song, section, key and tempo. Also works with ClickPad.",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/mikecreates86/companion-module-clickpad.git",
 	"bugs": "https://github.com/mikecreates86/companion-module-clickpad/issues",

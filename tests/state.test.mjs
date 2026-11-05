@@ -98,11 +98,15 @@ test('sends the action names ClickPad understands', () => {
 		'padsStop',
 		'fade',
 		'loop',
+		'nextSection',
+		'previousSection',
 	])
 	assert.equal(commandFor('pads_engage'), '{"action":"engage"}')
 	assert.equal(commandFor('pads_stop'), '{"action":"padsStop"}')
 	assert.equal(commandFor('fade'), '{"action":"fade"}')
 	assert.equal(commandFor('loop'), '{"action":"loop"}')
+	assert.equal(commandFor('next_section'), '{"action":"nextSection"}')
+	assert.equal(commandFor('previous_section'), '{"action":"previousSection"}')
 	assert.equal(commandFor('go'), '{"action":"go"}')
 	assert.equal(commandFor('play'), '{"action":"play"}')
 	assert.equal(commandFor('stop'), '{"action":"stop"}')
