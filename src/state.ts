@@ -41,10 +41,8 @@ export interface ClickPadState {
 	/** Every song in the set list, in order (for song button labels). */
 	songTitles: string[]
 	songKeys: string[]
-	/** Anchor: what's wrong right now, in plain English (the red dot's list). Empty when all is well. */
-	problems: string[]
-	/** Anchor: the section of a tracks song playing now, e.g. "verse 2" ("" otherwise). */
-	section: string
+	/** What's wrong with the sound right now, in a few words ("Interface unplugged"). "" when all is well. */
+	problem: string
 }
 
 export const EMPTY_STATE: ClickPadState = {
@@ -82,8 +80,7 @@ export const EMPTY_STATE: ClickPadState = {
 	songNameVolume: 100,
 	songTitles: [],
 	songKeys: [],
-	problems: [],
-	section: '',
+	problem: '',
 }
 
 /** How many songs get their own title and key variables (song_1_title … song_20_title). */
@@ -104,7 +101,7 @@ export function parseState(text: string): ClickPadState | undefined {
 
 /** Variable names follow the MultiTracks Playback module, so Stream Deck pages read the same way. */
 export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
-	connection_state: { name: 'Anchor connection (connected/connecting/offline)' },
+	connection_state: { name: 'ClickPad connection (connected/connecting/offline)' },
 	reconnect_count: { name: 'Connection drops since Companion started this connection' },
 	setlist_name: { name: 'Set list name' },
 	setlist_song_count: { name: 'Number of songs in the set list' },
@@ -130,14 +127,13 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 	beat: { name: 'Beat in the bar (0 when not playing)' },
 	pad_play_state: { name: 'Pad play state (playing/stopped)' },
 	announcing: { name: 'Announcement speaking (true/false)' },
-	audio_output: { name: 'Anchor audio output name' },
-	clickpad_name: { name: "This Anchor's name (set in Anchor › Setup › Remotes and Companion)" },
+	audio_output: { name: 'ClickPad audio output name' },
+	clickpad_name: { name: "This ClickPad's name (set in ClickPad › Settings › Connections)" },
 	remote_count: { name: 'Number of remotes connected' },
 	remote_names: { name: 'Names of the remotes connected, e.g. "Keys, Drums"' },
 	click_volume: { name: 'Click level (0–100)' },
 	pad_volume: { name: 'Pad level (0–100)' },
 	song_name_volume: { name: 'Song name (announcement) level (0–100)' },
-	section: { name: 'Section playing now, e.g. "verse 2" (empty otherwise)' },
 	problem_count: { name: 'Number of problems right now (0 when all is well)' },
 	problem: { name: 'The first problem, in plain English (empty when all is well)' },
 	problems: { name: 'Every problem, separated by " · " (empty when all is well)' },
@@ -151,10 +147,9 @@ export const VARIABLE_DEFINITIONS: Record<string, { name: string }> = {
 
 const capital = (text: string) => (text ? text[0].toUpperCase() + text.slice(1) : '')
 
-/** The problems Anchor reports, ignoring anything that isn't text. ClickPad sends none. */
+/** The problem ClickPad reports (its red dot), as a list: empty when all is well or when an older ClickPad sends none. */
 export function problemList(state: ClickPadState): string[] {
-	if (!Array.isArray(state.problems)) return []
-	return state.problems.filter((p): p is string => typeof p === 'string' && p.trim() !== '')
+	return typeof state.problem === 'string' && state.problem.trim() !== '' ? [state.problem.trim()] : []
 }
 
 /** All variable values for a state. */
@@ -205,7 +200,6 @@ export function variableValues(
 		click_volume: state.clickVolume,
 		pad_volume: state.padVolume,
 		song_name_volume: state.songNameVolume,
-		section: typeof state.section === 'string' ? state.section : '',
 		problem_count: problems.length,
 		problem: problems[0] ?? '',
 		problems: problems.join(' · '),
@@ -223,10 +217,6 @@ export function variableValues(
  * action name (part of the contract with the app: don't change these).
  */
 export const CONTROLS = [
-	// Anchor only (older ClickPad ignores them): each does only that, so a missed press can never start a song
-	// that was meant to stop. Start/Stop toggles.
-	{ id: 'play', app: 'play', name: 'Play', text: 'PLAY' },
-	{ id: 'stop', app: 'stop', name: 'Stop', text: 'STOP' },
 	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (GO, or Stop Click)', text: 'START' },
 	{ id: 'go', app: 'go', name: 'GO (Pad, Announcement and Click)', text: 'GO' },
 	{ id: 'next_song', app: 'nextSong', name: 'Next Song', text: 'NEXT' },
@@ -238,14 +228,6 @@ export const CONTROLS = [
 	{ id: 'pad_on', app: 'padStart', name: 'Pad On', text: 'PAD\nON' },
 	{ id: 'pad_off', app: 'padStop', name: 'Pad Off', text: 'PAD\nOFF' },
 	{ id: 'stop_all', app: 'stopAll', name: 'Stop All', text: 'STOP\nALL' },
-	// Anchor only (older ClickPad ignores them).
-	{ id: 'pads_engage', app: 'engage', name: 'Pads: Engage', text: 'ENGAGE' },
-	{ id: 'pads_stop', app: 'padsStop', name: 'Pads: Stop', text: 'PADS\nSTOP' },
-	{ id: 'fade', app: 'fade', name: 'Fade Song', text: 'FADE' },
-	{ id: 'loop', app: 'loop', name: 'Loop Section', text: 'LOOP' },
-	// Anchor only: where the song goes when the section playing ends, one section later or earlier per press.
-	{ id: 'next_section', app: 'nextSection', name: 'Next Section', text: 'NEXT\nSECTION' },
-	{ id: 'previous_section', app: 'previousSection', name: 'Previous Section', text: 'PREV\nSECTION' },
 ] as const
 
 export type ControlId = (typeof CONTROLS)[number]['id']

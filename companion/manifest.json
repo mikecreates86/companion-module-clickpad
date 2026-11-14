@@ -2,10 +2,10 @@
 	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
 	"type": "connection",
 	"id": "clickpad",
-	"name": "Anchor",
-	"shortname": "Anchor",
-	"description": "Control Anchor (click, pads, tracks and song announcements for worship) and show the current song, section, key and tempo. Also works with ClickPad.",
-	"version": "1.5.0",
+	"name": "ClickPad",
+	"shortname": "ClickPad",
+	"description": "Control ClickPad (click, key-matched pads and song announcements for worship) and show the current song, key and tempo.",
+	"version": "2.0.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/mikecreates86/companion-module-clickpad.git",
 	"bugs": "https://github.com/mikecreates86/companion-module-clickpad/issues",
@@ -22,7 +22,7 @@
 		"entrypoint": "../dist/main.js"
 	},
 	"legacyIds": [],
-	"manufacturer": "Anchor",
-	"products": ["Anchor", "ClickPad"],
-	"keywords": ["click", "metronome", "pads", "tracks", "anchor", "worship", "planning center"]
+	"manufacturer": "ClickPad",
+	"products": ["ClickPad"],
+	"keywords": ["click", "metronome", "pads", "worship", "planning center"]
 }

@@ -81,8 +81,6 @@ test('ignores anything that is not a state message, and fills missing fields', (
 test('sends the action names ClickPad understands', () => {
 	const app = CONTROLS.map((c) => c.app)
 	assert.deepEqual(app, [
-		'play',
-		'stop',
 		'startStopToggle',
 		'go',
 		'nextSong',
@@ -94,22 +92,24 @@ test('sends the action names ClickPad understands', () => {
 		'padStart',
 		'padStop',
 		'stopAll',
-		'engage',
-		'padsStop',
-		'fade',
-		'loop',
-		'nextSection',
-		'previousSection',
 	])
-	assert.equal(commandFor('pads_engage'), '{"action":"engage"}')
-	assert.equal(commandFor('pads_stop'), '{"action":"padsStop"}')
-	assert.equal(commandFor('fade'), '{"action":"fade"}')
-	assert.equal(commandFor('loop'), '{"action":"loop"}')
-	assert.equal(commandFor('next_section'), '{"action":"nextSection"}')
-	assert.equal(commandFor('previous_section'), '{"action":"previousSection"}')
+	// Every button must be one ClickPad acts on (its TransportAction names); anything else would do nothing.
+	const clickPadActions = new Set([
+		'go',
+		'startStopToggle',
+		'clickStart',
+		'clickStop',
+		'clickToggle',
+		'padStart',
+		'padStop',
+		'padToggle',
+		'nextSong',
+		'previousSong',
+		'stopAll',
+		'tapTempo',
+	])
+	for (const a of app) assert.ok(clickPadActions.has(a), `ClickPad doesn't know "${a}"`)
 	assert.equal(commandFor('go'), '{"action":"go"}')
-	assert.equal(commandFor('play'), '{"action":"play"}')
-	assert.equal(commandFor('stop'), '{"action":"stop"}')
 	assert.equal(commandFor('toggle_pad'), '{"action":"padToggle"}')
 	assert.equal(commandFor('start_stop'), '{"action":"startStopToggle"}')
 	assert.equal(selectSongCommand(3), '{"action":"selectSong","song":3}')
@@ -161,30 +161,25 @@ test('level commands', () => {
 	assert.deepEqual(JSON.parse(levelCommand('click', { to: 80 })), { action: 'adjustLevel', layer: 'click', to: 80 })
 })
 
-test('Anchor problems and section become variables', () => {
-	const state = parseState(
-		JSON.stringify({ type: 'state', section: 'verse 2', problems: ['Audio output not found', 'Pad missing'] }),
-	)
+test('ClickPad problem (the red dot) becomes variables', () => {
+	const state = parseState(JSON.stringify({ type: 'state', problem: 'Interface unplugged' }))
 	const values = variableValues(state, 'connected')
-	assert.equal(values.section, 'verse 2')
-	assert.equal(values.problem_count, 2)
-	assert.equal(values.problem, 'Audio output not found')
-	assert.equal(values.problems, 'Audio output not found · Pad missing')
-	assert.deepEqual(problemList(state), ['Audio output not found', 'Pad missing'])
+	assert.equal(values.problem_count, 1)
+	assert.equal(values.problem, 'Interface unplugged')
+	assert.equal(values.problems, 'Interface unplugged')
+	assert.deepEqual(problemList(state), ['Interface unplugged'])
 })
 
-test('ClickPad (no problems or section sent) leaves them empty', () => {
+test('No problem sent (all well, or an older ClickPad) leaves them empty', () => {
 	const state = parseState(sample)
 	const values = variableValues(state, 'connected')
-	assert.equal(values.section, '')
 	assert.equal(values.problem_count, 0)
 	assert.equal(values.problem, '')
 	assert.equal(values.problems, '')
 	assert.deepEqual(problemList(state), [])
-	// Anything odd in the list is ignored rather than shown.
-	const odd = parseState(JSON.stringify({ type: 'state', problems: 'oops', section: 5 }))
+	// Anything odd is ignored rather than shown.
+	const odd = parseState(JSON.stringify({ type: 'state', problem: 5 }))
 	assert.equal(variableValues(odd, 'connected').problem_count, 0)
-	assert.equal(variableValues(odd, 'connected').section, '')
-	const mixed = parseState(JSON.stringify({ type: 'state', problems: ['', 3, 'Click output off'] }))
-	assert.equal(variableValues(mixed, 'connected').problem, 'Click output off')
+	const blank = parseState(JSON.stringify({ type: 'state', problem: '  ' }))
+	assert.equal(variableValues(blank, 'connected').problem, '')
 })

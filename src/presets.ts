@@ -20,9 +20,9 @@ export function UpdatePresets(self: ModuleInstance): void {
 	const structure: CompanionPresetSection[] = [
 		{
 			id: 'clickpad',
-			name: 'Anchor',
+			name: 'ClickPad',
 			definitions: [
-				{ id: 'controls', name: 'Anchor controls', type: 'simple', presets: CONTROLS.map((c) => c.id) },
+				{ id: 'controls', name: 'ClickPad controls', type: 'simple', presets: CONTROLS.map((c) => c.id) },
 				{ id: 'songs', name: 'Select song', type: 'simple', presets: songNumbers.map((n) => `select_song_${n}`) },
 				{
 					id: 'levels',
@@ -48,7 +48,6 @@ export function UpdatePresets(self: ModuleInstance): void {
 						'display_key_tempo',
 						'display_next',
 						'display_status',
-						'display_section',
 						'display_problems',
 					],
 				},
@@ -68,8 +67,6 @@ export function UpdatePresets(self: ModuleInstance): void {
 		string,
 		{ bgcolor: number; lit?: { feedbackId: string; bgcolor: number; color?: number } }
 	> = {
-		play: { bgcolor: GREEN, lit: { feedbackId: 'click_running', bgcolor: 0x1f6b44 } },
-		stop: { bgcolor: DARK },
 		start_stop: { bgcolor: GREEN },
 		go: { bgcolor: GREEN, lit: { feedbackId: 'click_running', bgcolor: 0x1f6b44 } },
 		next_song: { bgcolor: TEAL },
@@ -81,12 +78,6 @@ export function UpdatePresets(self: ModuleInstance): void {
 		pad_on: { bgcolor: DARK, lit: { feedbackId: 'pad_on', bgcolor: TEAL } },
 		pad_off: { bgcolor: DARK },
 		stop_all: { bgcolor: RED },
-		pads_engage: { bgcolor: TEAL },
-		pads_stop: { bgcolor: DARK },
-		fade: { bgcolor: AMBER },
-		loop: { bgcolor: DARK },
-		next_section: { bgcolor: DARK },
-		previous_section: { bgcolor: DARK },
 	}
 
 	const presets: Record<string, unknown> = {
@@ -104,7 +95,6 @@ export function UpdatePresets(self: ModuleInstance): void {
 		},
 	}
 
-	presets.display_section = info('Section playing', `$(${v}:section)`, 18)
 	// Offstage fault banner: blank when all is well, red with the first problem when not.
 	presets.display_problems = {
 		...info('Problem banner', `$(${v}:problem)`, 14),

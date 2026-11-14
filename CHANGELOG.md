@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.0
+
+- Named **ClickPad** again everywhere you see it; setup points to ClickPad › Settings › Connections.
+- Removed the Anchor-only actions ClickPad ignores (Play, Stop, Pads: Engage, Pads: Stop, Fade Song, Loop Section, Next Section, Previous Section), their presets, and the `section` variable and preset.
+- Something Needs Attention, the Problem banner and the `problem`, `problems` and `problem_count` variables now follow ClickPad's `problem` field (for example "Interface unplugged").
+- A test checks every button sends an action ClickPad acts on.
+
 ## 1.5.0
 
 - New actions **Next Section** and **Previous Section** (Anchor): each press moves where the song goes when the section playing ends one section later or earlier. Anchor shows it under Next; pressing back to the section that comes anyway lets the jump go. While a section loops, Next Section lets the loop go. Presets for both.

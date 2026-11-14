@@ -22,7 +22,7 @@ const RED = 0xc0392b
 export function UpdateFeedbacks(self: ModuleInstance): void {
 	const definitions: CompanionFeedbackDefinitions<FeedbacksSchema> = {
 		connected: {
-			name: 'Anchor Connected',
+			name: 'ClickPad Connected',
 			type: 'boolean',
 			defaultStyle: { bgcolor: GREEN, color: 0xffffff },
 			options: [],
@@ -72,7 +72,8 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 		},
 		has_problems: {
 			name: 'Something Needs Attention',
-			description: 'On while Anchor reports a problem (its red dot). Off when all is well.',
+			description:
+				'On while ClickPad reports a problem (its red dot), such as the audio interface unplugged. Off when all is well.',
 			type: 'boolean',
 			defaultStyle: { bgcolor: RED, color: 0xffffff },
 			options: [],

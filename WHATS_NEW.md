@@ -1,5 +1,7 @@
 ## What's new
 
-- **Next Section and Previous Section buttons.** Each press moves where the song goes when the section playing ends, one section later or earlier, and Anchor shows it under Next. While a section loops, Next Section lets it go.
+- **ClickPad again.** The module is named ClickPad everywhere (the connection type, settings, presets and help), and setup points to ClickPad › Settings › Connections.
+- **Only buttons ClickPad acts on.** Play, Stop, Pads: Engage, Pads: Stop, Fade Song, Loop Section, Next Section and Previous Section did nothing in ClickPad, so they're gone, with the Section variable and preset. Start/Stop, GO and every other control work as before.
+- **The red problem light works with ClickPad.** Something Needs Attention, the Problem banner and the `problem` variable now show ClickPad's sound problems, such as "Interface unplugged".
 
-Version 1.4.0 added Play and Stop; 1.3.0 added Pads: Engage, Pads: Stop, Fade Song, Loop Section and the Problem banner.
+Existing connections and buttons keep working: the internal ID and variable names haven't changed. Buttons that used one of the removed actions show it as missing; delete or change those.

@@ -13,14 +13,14 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			label: 'Before you start',
 			width: 12,
 			value:
-				'In Anchor, open Setup and turn on "Allow remotes and Companion". It shows the device\'s address and port to enter here.',
+				'In ClickPad, open Settings › Connections and turn on "Allow remotes and Companion". It shows the device\'s address and port to enter here.',
 		},
 		{
 			type: 'textinput',
 			id: 'host',
-			label: 'Anchor device address',
+			label: 'ClickPad device address',
 			tooltip:
-				'The IP address shown in Anchor › Setup › Remotes and Companion. Use 127.0.0.1 if Companion runs on the same device. Give the Anchor device a fixed (static or DHCP-reserved) IP address so it cannot change between services.',
+				'The IP address shown in ClickPad › Settings › Connections. Use 127.0.0.1 if Companion runs on the same device. Give the ClickPad device a fixed (static or DHCP-reserved) IP address so it cannot change between services.',
 			width: 8,
 			default: '127.0.0.1',
 			regex: Regex.HOSTNAME,
@@ -29,7 +29,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			type: 'number',
 			id: 'port',
 			label: 'Port',
-			tooltip: 'The port shown in Anchor › Setup › Remotes and Companion (normally 9330).',
+			tooltip: 'The port shown in ClickPad › Settings › Connections (normally 9330).',
 			width: 4,
 			default: 9330,
 			min: 1,
