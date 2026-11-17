@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+
+- New actions **Play** and **Stop**: Play only ever starts (a second press does nothing) and Stop only ever stops (the click; the pad keeps going, or a pad-only song's pad), so a doubled or missed press can never do the opposite. In Simple Mode, Play starts the chosen pad and Stop stops it. Presets for both. Needs ClickPad from November 17, 2026 or later.
+- **Start/Stop** still does both on one button.
+
 ## 2.0.0
 
 - Named **ClickPad** again everywhere you see it; setup points to ClickPad › Settings › Connections.

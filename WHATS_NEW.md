@@ -1,7 +1,6 @@
 ## What's new
 
-- **ClickPad again.** The module is named ClickPad everywhere (the connection type, settings, presets and help), and setup points to ClickPad › Settings › Connections.
-- **Only buttons ClickPad acts on.** Play, Stop, Pads: Engage, Pads: Stop, Fade Song, Loop Section, Next Section and Previous Section did nothing in ClickPad, so they're gone, with the Section variable and preset. Start/Stop, GO and every other control work as before.
-- **The red problem light works with ClickPad.** Something Needs Attention, the Problem banner and the `problem` variable now show ClickPad's sound problems, such as "Interface unplugged".
+- **Play and Stop buttons.** Play only ever starts and Stop only ever stops, so a doubled or missed press can never stop a song you meant to start, or start one you meant to stop. Stop stops the click (the pad keeps going), or a pad-only song's pad. In Simple Mode, Play starts the chosen pad and Stop stops it. **Start/Stop** still does both on one button.
+- Update ClickPad too: older versions ignore Play and Stop.
 
-Existing connections and buttons keep working: the internal ID and variable names haven't changed. Buttons that used one of the removed actions show it as missing; delete or change those.
+Version 2.0.0 named the module ClickPad again and made the red problem light follow ClickPad.

@@ -217,7 +217,11 @@ export function variableValues(
  * action name (part of the contract with the app: don't change these).
  */
 export const CONTROLS = [
-	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (GO, or Stop Click)', text: 'START' },
+	// Play only ever starts and Stop only ever stops, so a doubled or missed press can't do the opposite.
+	// Start/Stop is both on one button.
+	{ id: 'play', app: 'play', name: 'Play (only starts)', text: 'PLAY' },
+	{ id: 'stop', app: 'stop', name: 'Stop (only stops)', text: 'STOP' },
+	{ id: 'start_stop', app: 'startStopToggle', name: 'Start/Stop (Play or Stop on one button)', text: 'START' },
 	{ id: 'go', app: 'go', name: 'GO (Pad, Announcement and Click)', text: 'GO' },
 	{ id: 'next_song', app: 'nextSong', name: 'Next Song', text: 'NEXT' },
 	{ id: 'previous_song', app: 'previousSong', name: 'Previous Song', text: 'PREV' },

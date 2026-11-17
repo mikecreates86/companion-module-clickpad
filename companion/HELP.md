@@ -13,14 +13,14 @@ The first time, your device may ask whether ClickPad may accept incoming network
 ### Presets
 
 - **Song info**: buttons that show the song title, key, tempo, next song, and click/pad status.
-- **Controls**: every ClickPad control. Start/Stop turns red and reads STOP while the click runs; Click and Pad light up while running.
+- **Controls**: every ClickPad control. Play lights while the click runs; Start/Stop turns red and reads STOP while the click runs; Click and Pad light up while running.
 - **Select song**: song 1 to 10, showing each song's title and key (lit when selected). Selecting doesn't start anything until GO.
 - **Levels**: click, pad and song name down/up, showing the current level.
 - **Status displays** also include a **Problem banner**: blank when all is well, red with the problem (for example "Interface unplugged") when the sound needs attention. Put it on an offstage Stream Deck.
 
 ### Actions
 
-Start/Stop, GO, Next Song, Previous Song, Toggle Click On/Off, Click On, Click Off, Toggle Pad On/Off, Pad On, Pad Off, Stop All, Select Song, Level Up/Down, Set Level.
+Play (only starts), Stop (only stops: the click, or a pad-only song's pad), Start/Stop (both on one button), GO, Next Song, Previous Song, Toggle Click On/Off, Click On, Click Off, Toggle Pad On/Off, Pad On, Pad Off, Stop All, Select Song, Level Up/Down, Set Level.
 
 ### Feedbacks
 
